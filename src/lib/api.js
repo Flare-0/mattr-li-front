@@ -6,7 +6,9 @@ const getAuthHeaders = () => {
 };
 
 export async function verifyApiKey(key) {
-  const res = await fetch(`${API_BASE}/api/verify`);
+  const res = await fetch(`${API_BASE}/api/verify`, {
+    headers: key ? { "X-Auth-Key": key } : getAuthHeaders(),
+  });
   const text = await res.text();
   try {
     const data = JSON.parse(text);
